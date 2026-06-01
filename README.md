@@ -28,9 +28,9 @@ done
 
 ## 2. Deploy Helm charts
 ```bash
-helm upgrade --install vault charts/vault -n vault --create-namespace
-helm upgrade --install monitoring charts/monitoring -n monitoring --create-namespace
-helm upgrade --install app charts/app -f charts/app/values.dev.yaml -n dev --create-namespace
+helm upgrade --install vault charts/vault -n vault --create-namespace --wait --timeout 5m && \
+helm upgrade --install monitoring charts/monitoring -n monitoring --create-namespace && \
+helm upgrade --install app charts/app -f charts/app/values.dev.yaml -n dev --create-namespace --wait --timeout 5m && \
 helm upgrade --install app charts/app -f charts/app/values.prod.yaml -n prod --create-namespace --atomic --timeout 5m
 ```
 
