@@ -1,0 +1,22 @@
+environment: dev
+replicaCount: 3
+image:
+  repository: app
+  tag: latest
+  pullPolicy: Never
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8000
+  nodePort: 30000
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+ingress:
+  enabled: false
+env:
+  SYS_ENV: hello-enclaive

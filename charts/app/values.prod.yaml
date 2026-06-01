@@ -1,0 +1,4 @@
+environment: prod
+replicaCount: 3
+service:
+  nodePort: 30001

@@ -1,0 +1,24 @@
+prometheus:
+  prometheus-node-exporter:
+    enabled: false
+  prometheus-pushgateway:
+    enabled: false
+  kube-state-metrics:
+    enabled: true
+  alertmanager:
+    enabled: true
+  server:
+    persistentVolume:
+      enabled: false
+  serverFiles:
+    alerting_rules.yml:
+      groups:
+        - name: demo
+          rules:
+            - alert: AppPodCrashLooping
+              expr: max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"}[5m]) >= 1
+              for: 1m
+              labels:
+                severity: warning
+              annotations:
+                summary: "Pod {{ $labels.pod }} is crash looping"
